@@ -846,17 +846,22 @@ class GameLogicPanel extends JPanel
         cannonAmmoWidth = playerTank.getCannonAmmo();
         rocketAmmoWidth =playerTank.getRocketAmmo();
         laserAmmoWidth = playerTank.getLaserAmmo();
-        AiTank aiTankTest = new AiTank(7,0.8,"Laser",new Point(900,300),playerTank,300,0,0,0,0,40);
+        AiTank aiTankTest = new AiTank(7,0.8,"Laser",new Point(900,250),playerTank,300,0,0,0,0,40);
         AiTank tanktest = new AiTank(6,0.8,"Minigun", new Point(1000,300),playerTank,300,0,15,0,0,0);
+        AiTank tanktest2 = new AiTank(6,0.8,"Shotgun", new Point(1100,400),playerTank,300,0,15,0,0,0);
+        AiTank tanktest3 = new AiTank(6,0.8,"Cannon", new Point(1200,500),playerTank,300,0,15,0,0,0);
+        AiTank tanktest4 = new AiTank(6,0.8,"Rocket", new Point(1300,600),playerTank,300,0,15,0,0,0);
         aiTankList.add(aiTankTest);
         aiTankList.add(tanktest);
+        aiTankList.add(tanktest2);
+        aiTankList.add(tanktest3);
+        aiTankList.add(tanktest4);
         aiTankList.add(new AiTank(7,1,"Rocket", new Point(1200,400),playerTank,300,0,0,0,25,0));
         playerHitbox = new Rectangle(playerTank.getCoords().x-5,playerTank.getCoords().y-25,57,57);
         for(int i = 0; i <= 20; i++)
         {
             blocksList.add(new Concrete(i*70,100));
             blocksList.add(new Concrete(i*40,520));
-            blocksList.add(new Concrete(1400,i*40));
             blocksList.add(new Concrete(520,i*40));
             blocksList.add(new Concrete(i*90,800));
         }
@@ -1092,4 +1097,5 @@ class GameLogicPanel extends JPanel
         gfx.setColor(Color.green);
         gfx.fillRect(ammoBar.x,ammoBar.y,ammoBar.width,ammoBar.height); 
     }
+
 }
