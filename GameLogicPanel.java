@@ -74,7 +74,7 @@ class GameLogicPanel extends JPanel
     private Timer aiTankUpdaterTimer;
     private int explosionTime = 50;
     private int assistExplosionTime = 1;
-    private int aiTankTime = 2200;
+    private int aiTankTime = 20; //2200
     private boolean shotgunCooldownIsOver = true;
     private boolean cannonCooldownIsOver = true;
     private int cameraX;
@@ -278,7 +278,6 @@ class GameLogicPanel extends JPanel
 
         for(AiTank tank: aiTankList)
         {
-            //Rectangle obsHitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
             Rectangle obsHitbox = tank.getHitbox();
              if(obsHitbox.x >=0 && obsHitbox.x <= frame.getWidth()-80 && obsHitbox.y >= 0 && obsHitbox.y <= frame.getHeight()-80)
              {
@@ -325,7 +324,7 @@ class GameLogicPanel extends JPanel
             Point tankCenter = new Point(playerTank.getCoords().x+25, playerTank.getCoords().y); 
             Vector2D rocketDirection = new Vector2D(rocket.getMouseX()-tankCenter.x,rocket.getMouseY()-tankCenter.y);
             rocketDirection = rocketDirection.normalize();
-            int speed = 5;
+            int speed = 2;
             rocket.setAngle(Math.atan2(rocket.getMouseY() - rocket.getPosY(),rocket.getMouseX() - rocket.getPosX()));
             rocket.relocateX((int) rocketDirection.multiply(speed).getX());
             rocket.relocateY( (int) rocketDirection.multiply(speed).getY());
@@ -361,7 +360,7 @@ class GameLogicPanel extends JPanel
         Point2D muzzle2 = rotatePoint(new Point2D.Double(tankCenter.x - 6, tankCenter.y + 5), tankCenter, angle);
         ballArray[0] =  new Ball((int)muzzle1.getX(), (int)muzzle1.getY(), 15, 15, Color.darkGray);
         ballArray[1] = new Ball((int)muzzle2.getX(), (int)muzzle2.getY(), 15, 15, Color.darkGray);
-        int speed = 50;
+        int speed = 20;
         for(int i = 0; i <2; i++)
         {
             ballArray[i].setDx((int)(Math.cos(angle) * speed));
@@ -399,7 +398,7 @@ class GameLogicPanel extends JPanel
         double angle = playerTank.getTurretAngle();
         Point2D muzzle = rotatePoint(new Point2D.Double(tankCenter.x + 5, tankCenter.y - 5), tankCenter, angle);
         ballArray[0] =  new Ball((int)muzzle.getX(), (int)muzzle.getY(), 25, 25, Color.darkGray);
-        int speed = 50;
+        int speed = 30;
         ballArray[0].setDx((int)(Math.cos(angle) * speed));
         ballArray[0].setDy((int)(Math.sin(angle) * speed));
         ballArray[0].setDistanceLimit(5000);
@@ -416,7 +415,7 @@ class GameLogicPanel extends JPanel
             ballArray[i].setDistanceLimit(400);
         }
 
-        int speed = 30;
+        int speed = 12;
         int spreadDegrees = 35;
         int centerIndex = 2;
         for(int i = 0; i <5; i++)
@@ -618,7 +617,6 @@ class GameLogicPanel extends JPanel
         while(iterator.hasNext())
         {
             AiTank tank = iterator.next();
-            //Rectangle hitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
             Rectangle hitbox = tank.getHitbox();
             if(hitbox.x >= 0 && hitbox.x <= frame.getWidth() -80 && hitbox.y >= 0 && hitbox.y <= frame.getHeight()-80)
             {
@@ -674,7 +672,6 @@ class GameLogicPanel extends JPanel
             Rectangle rocketHitbox = new Rectangle(rocket.getPosX()-5,rocket.getPosY()-7,rocket.getWidth()+5,rocket.getHeight()+15);
             for(AiTank tank: aiTankList)
             {
-                //Rectangle obsHitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
                 Rectangle obsHitbox = tank.getHitbox();
                 if(obsHitbox.x >=0 && obsHitbox.x <= frame.getWidth()-80 && obsHitbox.y >= 0 && obsHitbox.y <= frame.getHeight()-80)
                 {
@@ -708,7 +705,6 @@ class GameLogicPanel extends JPanel
 
             for(AiTank tank: aiTankList)
             {
-                //Rectangle obsHitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
                 Rectangle obsHitbox = tank.getHitbox();
                 if(laserLine.intersects(obsHitbox))
                 {
@@ -802,8 +798,7 @@ class GameLogicPanel extends JPanel
                     while (iterator.hasNext()) 
                     {
                         AiTank tank = iterator.next();
-                       // Rectangle obsHitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
-                       Rectangle obsHitbox = tank.getHitbox();
+                        Rectangle obsHitbox = tank.getHitbox();
                         if(obsHitbox.x >=0 && obsHitbox.x <= frame.getWidth()-80 && obsHitbox.y >= 0 && obsHitbox.y <= frame.getHeight()-80 || playerTank.getWeapon().equals("Cannon"))
                         {
                             if(ballhitBox.intersects(obsHitbox))
@@ -851,11 +846,11 @@ class GameLogicPanel extends JPanel
         cannonAmmoWidth = playerTank.getCannonAmmo();
         rocketAmmoWidth =playerTank.getRocketAmmo();
         laserAmmoWidth = playerTank.getLaserAmmo();
-        AiTank aiTankTest = new AiTank(1,0.8,"Laser",new Point(900,300),playerTank,300,0,0,0,0,40);
-        AiTank tanktest = new AiTank(1,0.8,"Shotgun", new Point(1000,300),playerTank,300,0,15,0,0,0);
+        AiTank aiTankTest = new AiTank(7,0.8,"Laser",new Point(900,300),playerTank,300,0,0,0,0,40);
+        AiTank tanktest = new AiTank(6,0.8,"Minigun", new Point(1000,300),playerTank,300,0,15,0,0,0);
         aiTankList.add(aiTankTest);
         aiTankList.add(tanktest);
-        aiTankList.add(new AiTank(1,1,"Rocket", new Point(1200,400),playerTank,300,0,0,0,25,0));
+        aiTankList.add(new AiTank(7,1,"Rocket", new Point(1200,400),playerTank,300,0,0,0,25,0));
         playerHitbox = new Rectangle(playerTank.getCoords().x-5,playerTank.getCoords().y-25,57,57);
         for(int i = 0; i <= 20; i++)
         {
@@ -940,10 +935,12 @@ class GameLogicPanel extends JPanel
             {
                 for(AiTank tank: aiTankList)
                 {
-                    Rectangle hitbox = tank.getHitbox();
+                   // Rectangle hitbox = tank.getHitbox();
                     tank.updateData(blocksList,aiTankList,cameraX,cameraY,frame);
                     tank.updateBarsAndHitboxPos();
-                    tank.checkAiCollisionWithBlocks();
+                    moveBalls();
+                    moveRocket();
+                    moveLaser();
                 }
             } 
         });
@@ -988,7 +985,6 @@ class GameLogicPanel extends JPanel
 
         for(AiTank tank: aiTankList)
         {
-            //Rectangle hitbox = new Rectangle(tank.getCoords().x-cameraX-5,tank.getCoords().y-cameraY-25,57,57);
             Rectangle hitbox = tank.getHitbox();
             if(hitbox.x >=0 && hitbox.x <= frame.getWidth()-80 && hitbox.y >= 0 && hitbox.y <= frame.getHeight()-80)
             {
@@ -1094,6 +1090,6 @@ class GameLogicPanel extends JPanel
         gfx.setColor(Color.red);
         gfx.fillRect(armorBar.x,armorBar.y,armorBar.width,armorBar.height);
         gfx.setColor(Color.green);
-        gfx.fillRect(ammoBar.x,ammoBar.y,ammoBar.width,ammoBar.height);  
+        gfx.fillRect(ammoBar.x,ammoBar.y,ammoBar.width,ammoBar.height); 
     }
 }
